@@ -69,4 +69,31 @@ public class Control {
         earned = grandTotal - saved;
         return earned;
     }
+    
+    // Return a string with commas of the received double
+    public String addCommas(double getDouble){
+        boolean counting = true;
+        String modifiedDouble;
+        modifiedDouble = ""+getDouble;
+        System.out.println("getDouble = "+modifiedDouble);
+        char[] doubleArray = modifiedDouble.toCharArray();
+        System.out.println("Array length: "+doubleArray.length); // works up to this point
+        // Count the number of chars until a '.'
+        char[] buildChar = doubleArray;
+        System.out.println("buildChar[]: "+buildChar);
+        
+            int n = 0;
+            System.out.println("n count: "+n);
+            System.out.println("Char: "+buildChar[n]);
+            if (buildChar[n] == '.')
+            {
+                System.out.println("Char: "+buildChar[n]);
+                System.out.println("Digits: "+n+1);
+                counting = false;
+            }
+            
+            n++;
+        
+        return modifiedDouble;
+    }
 }
