@@ -282,6 +282,8 @@ public class CompoundInterest extends Application{
                     // Display the grand total of money invested + earned
                     total = mgmt.grandTotal(customYears, initialInvest, annualAdd, assumeInt);
                     total = round(total, 2);
+                    // Send total to the add comma method to improve readability before output
+                    mgmt.addCommas(total);
                     String getTotal = ""+total;
                     gui.showTotal.setText(getTotal);
                     gui.showTotal.setVisible(true);
