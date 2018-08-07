@@ -72,28 +72,37 @@ public class Control {
     
     // Return a string with commas of the received double
     public String addCommas(double getDouble){
-        boolean counting = true;
         String modifiedDouble;
+        int doubleLength = 0;
         modifiedDouble = ""+getDouble;
         System.out.println("getDouble = "+modifiedDouble);
         char[] doubleArray = modifiedDouble.toCharArray();
-        System.out.println("Array length: "+doubleArray.length); // works up to this point
+        System.out.println("doubleArray length: "+doubleArray.length); 
         // Count the number of chars until a '.'
-        char[] buildChar = doubleArray;
-        System.out.println("buildChar[]: "+buildChar);
-        
-            int n = 0;
-            System.out.println("n count: "+n);
-            System.out.println("Char: "+buildChar[n]);
-            if (buildChar[n] == '.')
+        for (int n = 0; n<doubleArray.length; n++)
+        {
+            System.out.println("[n count: "+n+"]");
+            System.out.println("Char: "+doubleArray[n]);
+            // If char '.' is found
+            if (doubleArray[n] == '.')
             {
-                System.out.println("Char: "+buildChar[n]);
-                System.out.println("Digits: "+n+1);
-                counting = false;
+                System.out.println("[Found '.'] at Char#"+n);
+                doubleLength = n;
             }
-            
-            n++;
-        
+        }
+        // Create a char array of only the numbers before the period
+        char[] loadOnlyInt = new char[doubleLength];
+        // Load in the values
+        for (int n = 0; n<doubleLength; n++)
+        {
+            loadOnlyInt[n] = doubleArray[n];
+            // 4 digit number
+            if (n > 3)
+            {
+                char[] newIntArray = new char[n+1];
+            }
+        }
+        // Return the double modified with commas
         return modifiedDouble;
     }
 }
