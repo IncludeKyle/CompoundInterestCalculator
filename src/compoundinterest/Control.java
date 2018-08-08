@@ -92,17 +92,55 @@ public class Control {
         }
         // Create a char array of only the numbers before the period
         char[] loadOnlyInt = new char[doubleLength];
-        // Load in the values
+        // Creates arrays with commas loaded for different digit lengths
+        char[] newIntArray4to6 = new char[doubleLength+1];
+        char[] newIntArray7to9 = new char[doubleLength+2];
+        char[] newIntArray10to12 = new char[doubleLength+3];
+        char[] newIntArray13to15 = new char[doubleLength+4];
+        // Load in the values for the only int array
         for (int n = 0; n<doubleLength; n++)
         {
             loadOnlyInt[n] = doubleArray[n];
-            // 4 digit number
-            if (n > 3)
-            {
-                char[] newIntArray = new char[n+1];
-            }
+            System.out.println("Load only ints: "+loadOnlyInt[n]);
         }
+            // add comma to 4 digit
+            if (doubleLength == 4)
+            {
+                newIntArray4to6[0] = loadOnlyInt[0];
+                System.out.println("New int array: "+newIntArray4to6[0]);
+                // Add the comma into row 2
+                newIntArray4to6[1] = ',';
+                System.out.println("New int array: "+newIntArray4to6[1]);
+                for (int x = 2; x<=doubleLength; x++)
+                {
+                    newIntArray4to6[x] = loadOnlyInt[x-1];
+                    System.out.println("New int array: "+newIntArray4to6[x]);
+                    System.out.println("Int: "+x);
+                }
+                String getString = "$";
+                getString += new String(newIntArray4to6);
+                modifiedDouble = getString;
+            }
+            // else add comma to 5 digit
+            else if (doubleLength == 5)
+            {
+                newIntArray4to6[0] = loadOnlyInt[0];
+                newIntArray4to6[1] = loadOnlyInt[1];
+                System.out.println("New int array: "+newIntArray4to6[0]+newIntArray4to6[1]);
+                // Add the comma into row 3
+                newIntArray4to6[2] = ',';
+                for (int x = 3; x<=doubleLength; x++)
+                {
+                    newIntArray4to6[x] = loadOnlyInt[x-1];
+                    System.out.println("New int array: "+newIntArray4to6[x]);
+                    System.out.println("Int: "+x);
+                }
+                String getString = "$";
+                getString += new String(newIntArray4to6);
+                modifiedDouble = getString;
+            }
         // Return the double modified with commas
+        System.out.println("Modified double = "+modifiedDouble);
         return modifiedDouble;
     }
 }
