@@ -70,77 +70,124 @@ public class Control {
         return earned;
     }
     
-    // Return a string with commas of the received double
-    public String addCommas(double getDouble){
-        String modifiedDouble;
-        int doubleLength = 0;
-        modifiedDouble = ""+getDouble;
-        System.out.println("getDouble = "+modifiedDouble);
-        char[] doubleArray = modifiedDouble.toCharArray();
-        System.out.println("doubleArray length: "+doubleArray.length); 
-        // Count the number of chars until a '.'
-        for (int n = 0; n<doubleArray.length; n++)
+    public String addCommas(double getDouble)
+    {
+        String returnString;
+        int convertToInt = (int)getDouble; // Casts double to int
+        System.out.println("Double received: "+getDouble+"\nCast int: "+convertToInt);
+        
+        // Count the int's number of digits
+        int intLength = String.valueOf(convertToInt).length();
+        System.out.println("Int length: "+intLength);
+        // Create array of chars of the int value
+        returnString = ""+convertToInt;
+        char[] intArray = returnString.toCharArray();
+        // Create an array of the same length to reverse the digits into
+        char[] flippedIntArray = new char[intLength];
+
+        // Make a new array for adding 1 comma
+        if (intLength > 3 && intLength <= 6)
         {
-            System.out.println("[n count: "+n+"]");
-            System.out.println("Char: "+doubleArray[n]);
-            // If char '.' is found
-            if (doubleArray[n] == '.')
+            // The char arrays for the final result
+            char[] commaArray = new char[intLength+1];
+            char[] flippedCommaArray = new char[intLength+1];
+            
+            int flippedCount = intLength-1; // Counting device
+            // Feed chars from intArray backwards into flippedIntArray
+            for (int count = 0; count < intLength; count++)
             {
-                System.out.println("[Found '.'] at Char#"+n);
-                doubleLength = n;
+                flippedIntArray[count] = intArray[flippedCount];
+                System.out.println("Backwards feed #"+count+"-Char: "+flippedIntArray[count]);
+                flippedCount--;
             }
+            // Feed the flipped array into a new array that has a comma
+            for (int count = 0; count <= intLength; count++)
+            {
+                if (count < 3) // load in chars 0-2
+                {
+                commaArray[count] = flippedIntArray[count];
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count == 3) // load in char 3 as a comma
+                {
+                commaArray[count] = ',';
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count > 3) // load in char 4-6
+                {
+                commaArray[count] = flippedIntArray[count-1];
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+            }
+            // Reverse the comma array back forward
+            flippedCount = intLength;
+            for (int count = 0; count <= intLength; count++)
+            {
+                flippedCommaArray[count] = commaArray[flippedCount];
+                System.out.println("**--> ReverseChar: "+flippedCommaArray[count]);
+                flippedCount--;
+            }
+            returnString = new String(flippedCommaArray);
+            System.out.println("Return String: "+returnString);
         }
-        // Create a char array of only the numbers before the period
-        char[] loadOnlyInt = new char[doubleLength];
-        // Creates arrays with commas loaded for different digit lengths
-        char[] newIntArray4to6 = new char[doubleLength+1];
-        char[] newIntArray7to9 = new char[doubleLength+2];
-        char[] newIntArray10to12 = new char[doubleLength+3];
-        char[] newIntArray13to15 = new char[doubleLength+4];
-        // Load in the values for the only int array
-        for (int n = 0; n<doubleLength; n++)
+        
+        // Make a new array for adding 2 commas
+        else if (intLength > 6 && intLength <= 9)
         {
-            loadOnlyInt[n] = doubleArray[n];
-            System.out.println("Load only ints: "+loadOnlyInt[n]);
+            // The char array for the final result
+            char[] commaArray = new char[intLength+2];
+            char[] flippedCommaArray = new char[intLength+2];
+            
+            int flippedCount = intLength-1; // Counting device
+            // Feed chars from intArray backwards into flippedIntArray
+            for (int count = 0; count < intLength; count++)
+            {
+                flippedIntArray[count] = intArray[flippedCount];
+                System.out.println("Backwards feed #"+count+"-Char: "+flippedIntArray[count]);
+                flippedCount--;
+            }
+            // Feed the flipped array into a new array that has a comma
+            for (int count = 0; count <= intLength+1; count++)
+            {
+                if (count < 3) // load in chars 0-2
+                {
+                commaArray[count] = flippedIntArray[count];
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count == 3) // load in char 3 as a comma
+                {
+                commaArray[count] = ',';
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count > 3 && count < 7) // load in char 4-6
+                {
+                commaArray[count] = flippedIntArray[count-1];
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count == 7) // add the 2nd comma
+                {
+                commaArray[count] = ',';
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+                else if (count > 7) // load in char 7-9
+                {
+                commaArray[count] = flippedIntArray[count-2];
+                System.out.println("Char #"+count+"-"+commaArray[count]);
+                }
+            }
+            // Reverse the comma array back forward
+            flippedCount = intLength+1;
+            for (int count = 0; count < intLength+2; count++)
+            {
+                flippedCommaArray[count] = commaArray[flippedCount];
+                System.out.println("**--> ReverseChar: "+flippedCommaArray[count]);
+                flippedCount--;
+            }
+            returnString = new String(flippedCommaArray);
+            System.out.println("Return String: "+returnString);
         }
-            // add comma to 4 digit
-            if (doubleLength == 4)
-            {
-                newIntArray4to6[0] = loadOnlyInt[0];
-                System.out.println("New int array: "+newIntArray4to6[0]);
-                // Add the comma into row 2
-                newIntArray4to6[1] = ',';
-                System.out.println("New int array: "+newIntArray4to6[1]);
-                for (int x = 2; x<=doubleLength; x++)
-                {
-                    newIntArray4to6[x] = loadOnlyInt[x-1];
-                    System.out.println("New int array: "+newIntArray4to6[x]);
-                    System.out.println("Int: "+x);
-                }
-                String getString = "$";
-                getString += new String(newIntArray4to6);
-                modifiedDouble = getString;
-            }
-            // else add comma to 5 digit
-            else if (doubleLength == 5)
-            {
-                newIntArray4to6[0] = loadOnlyInt[0];
-                newIntArray4to6[1] = loadOnlyInt[1];
-                System.out.println("New int array: "+newIntArray4to6[0]+newIntArray4to6[1]);
-                // Add the comma into row 3
-                newIntArray4to6[2] = ',';
-                for (int x = 3; x<=doubleLength; x++)
-                {
-                    newIntArray4to6[x] = loadOnlyInt[x-1];
-                    System.out.println("New int array: "+newIntArray4to6[x]);
-                    System.out.println("Int: "+x);
-                }
-                String getString = "$";
-                getString += new String(newIntArray4to6);
-                modifiedDouble = getString;
-            }
-        // Return the double modified with commas
-        System.out.println("Modified double = "+modifiedDouble);
-        return modifiedDouble;
+        // Always tack on a dollar sign
+        returnString = "$"+returnString;
+        return returnString;
     }
 }
