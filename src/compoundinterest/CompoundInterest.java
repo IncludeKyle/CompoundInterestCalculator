@@ -198,21 +198,21 @@ public class CompoundInterest extends Application{
                     // Display the grand total of money invested + earned
                     total = mgmt.grandTotal(currentAge, retireAge, initialInvest, annualAdd, assumeInt);
                     total = round(total, 2);
-                    String getTotal = ""+total;
+                    String getTotal = mgmt.addCommas(total);
                     gui.showTotal.setText(getTotal);
                     gui.showTotal.setVisible(true);
                     
                     // Display total money invested
                     Double years = retireAge - currentAge;
                     invested = mgmt.moneyInvested(initialInvest, annualAdd, years);
-                    String getInvest = ""+invested;
+                    String getInvest = mgmt.addCommas(invested);
                     gui.showInvest.setText(getInvest);
                     gui.showInvest.setVisible(true);
                     
                     // Display total money earned off the investment
                     earned = mgmt.totalEarned(total, invested);
                     earned = round(earned, 2);
-                    String getEarned = ""+earned;
+                    String getEarned = mgmt.addCommas(earned);
                     gui.showReturn.setText(getEarned);
                     gui.showReturn.setVisible(true);
                     
@@ -282,20 +282,21 @@ public class CompoundInterest extends Application{
                     // Display the grand total of money invested + earned
                     total = mgmt.grandTotal(customYears, initialInvest, annualAdd, assumeInt);
                     total = round(total, 2);
-                    String getTotal = ""+total;
+                    // Send total to the add comma method to improve readability before output
+                    String getTotal = mgmt.addCommas(total);
                     gui.showTotal.setText(getTotal);
                     gui.showTotal.setVisible(true);
                     
                     // Display total money invested
                     invested = mgmt.moneyInvested(initialInvest, annualAdd, customYears);
-                    String getInvest = ""+invested;
+                    String getInvest = mgmt.addCommas(invested);
                     gui.showInvest.setText(getInvest);
                     gui.showInvest.setVisible(true);
                     
                     // Display total money earned off the investment
                     earned = mgmt.totalEarned(total, invested);
                     earned = round(earned, 2);
-                    String getEarned = ""+earned;
+                    String getEarned = mgmt.addCommas(earned);
                     gui.showReturn.setText(getEarned);
                     gui.showReturn.setVisible(true);
                     
