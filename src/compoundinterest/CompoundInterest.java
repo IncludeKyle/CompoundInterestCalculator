@@ -123,7 +123,8 @@ public class CompoundInterest extends Application{
                 gui.getInt.setVisible(true);
             }
         });
-        // Set up the bottom row of buttons action events
+        
+        // Set up the action events for the bottom 4x buttons
         gui.calculate.setOnAction(new EventHandler<ActionEvent>(){
             @Override public void handle(ActionEvent e)
             {
@@ -141,7 +142,10 @@ public class CompoundInterest extends Application{
                         currentAge = 0.0;
                         gui.currentAgeField.setText("0.0");
                     }
-                    System.out.println(currentAge);
+                    currentAge = mgmt.stayPositive(currentAge);
+                    grab = ""+currentAge;
+                    gui.currentAgeField.setText(grab);
+                    System.out.println("Current Age:"+currentAge);
                     
                     // Grab retire age user input
                     grab = gui.retireAgeField.getText();
@@ -154,7 +158,25 @@ public class CompoundInterest extends Application{
                         retireAge = 1.0;
                         gui.retireAgeField.setText("1.0");
                     }
-                    System.out.println(retireAge);
+                    retireAge = mgmt.stayPositive(retireAge);
+                    grab = ""+retireAge;
+                    gui.retireAgeField.setText(grab);
+                    System.out.println("Retire Age:"+retireAge);
+                    
+                    // Prevent the retirement age from being less than the current age
+                    if (retireAge < currentAge)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("System Alert:");
+                        alert.setHeaderText("Retirement age was modified to prevent invalid input.");
+                        alert.setContentText("You can't retire younger than your current age!");
+                        alert.showAndWait();
+                        
+                        // Rectify input to valid state
+                        retireAge = currentAge+1;
+                        grab = ""+retireAge;
+                        gui.retireAgeField.setText(grab);
+                    }
                             
                     // Grab initial investment amount user input
                     grab = gui.getInv.getText();
@@ -167,7 +189,10 @@ public class CompoundInterest extends Application{
                         initialInvest = 1.0;
                         gui.getInv.setText("1.0");
                     }
-                    System.out.println(initialInvest);
+                    initialInvest = mgmt.stayPositive(initialInvest);
+                    grab = ""+initialInvest;
+                    gui.getInv.setText(grab);
+                    System.out.println("Initial Invest:"+initialInvest);
 
                     // Grab annual addition amount user input
                     grab = gui.getAdd.getText();
@@ -180,7 +205,10 @@ public class CompoundInterest extends Application{
                         annualAdd = 1.0;
                         gui.getAdd.setText("1.0");
                     }
-                    System.out.println(annualAdd);
+                    annualAdd = mgmt.stayPositive(annualAdd);
+                    grab = ""+annualAdd;
+                    gui.getAdd.setText(grab);
+                    System.out.println("AnnualAdd:"+annualAdd);
 
                     // Grab annual interest amount user input
                     grab = gui.getInt.getText();
@@ -193,7 +221,10 @@ public class CompoundInterest extends Application{
                         assumeInt = 1.0;
                         gui.getInt.setText("1.0");
                     }
-                    System.out.println(assumeInt);
+                    assumeInt = mgmt.stayPositive(assumeInt);
+                    grab = ""+assumeInt;
+                    gui.getInt.setText(grab);
+                    System.out.println("Assume Int:"+assumeInt);
                     
                     // Display the grand total of money invested + earned
                     total = mgmt.grandTotal(currentAge, retireAge, initialInvest, annualAdd, assumeInt);
@@ -224,6 +255,8 @@ public class CompoundInterest extends Application{
                     System.out.println("bc Investment Return: $" + earned);
                     System.out.println("bc Grand Total: $" + total);
                 }
+                
+                // Else if the user decides they want to use the custom option
                 else if (!retireBool)
                 {
                     String grab;
@@ -238,7 +271,10 @@ public class CompoundInterest extends Application{
                         customYears = 1.0;
                         gui.customYearsField.setText("1.0");
                     }
-                    System.out.println(customYears);
+                    customYears = mgmt.stayPositive(customYears);
+                    grab = ""+customYears;
+                    gui.customYearsField.setText(grab);
+                    System.out.println("Custom Years:"+customYears);
                     
                     // Grab initial investment amount user input
                     grab = gui.getInv.getText();
@@ -251,7 +287,10 @@ public class CompoundInterest extends Application{
                         initialInvest = 1.0;
                         gui.getInv.setText("1.0");
                     }
-                    System.out.println(initialInvest);
+                    initialInvest = mgmt.stayPositive(initialInvest);
+                    grab = ""+initialInvest;
+                    gui.getInv.setText(grab);
+                    System.out.println("Initial Invest:"+initialInvest);
 
                     // Grab annual addition amount user input
                     grab = gui.getAdd.getText();
@@ -264,7 +303,10 @@ public class CompoundInterest extends Application{
                         annualAdd = 1.0;
                         gui.getAdd.setText("1.0");
                     }
-                    System.out.println(annualAdd);
+                    annualAdd = mgmt.stayPositive(annualAdd);
+                    grab = ""+annualAdd;
+                    gui.getAdd.setText(grab);
+                    System.out.println("Annual Add:"+annualAdd);
 
                     // Grab annual interest amount user input
                     grab = gui.getInt.getText();
@@ -277,7 +319,10 @@ public class CompoundInterest extends Application{
                         assumeInt = 1.0;
                         gui.getInt.setText("1.0");
                     }
-                    System.out.println(assumeInt);
+                    assumeInt = mgmt.stayPositive(assumeInt);
+                    grab = ""+assumeInt;
+                    gui.getInt.setText(grab);
+                    System.out.println("Assumed Int:"+assumeInt);
                     
                     // Display the grand total of money invested + earned
                     total = mgmt.grandTotal(customYears, initialInvest, annualAdd, assumeInt);
@@ -392,7 +437,7 @@ public class CompoundInterest extends Application{
             @Override public void handle(ActionEvent e)
             {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("System Alert");
+                alert.setTitle("System Alert:");
                 alert.setHeaderText("Close compounding interest calculator?");
                 alert.setContentText("All unsaved calculations will be lost!");
                 //alert.showAndWait();
