@@ -19,20 +19,17 @@ public class Control {
     // Return total money saved (retire)
     public double grandTotal(double currentAge, double retireAge, 
            double initialInvest, double annualAdd, double assumeInt){
-        
         double age = retireAge - currentAge;
-        
         double convInterest = (assumeInt/100)+1;
+        
         System.out.println("Age: " + age);
         System.out.println("Interest: " + convInterest);
-        
         Double balance = (initialInvest * convInterest) + annualAdd;
-        System.out.println("Year: 1 Balance: " + balance);
+        System.out.println("Year: 1 -- Balance: $" + balance);
         
         for (int years = 1; years < age; years++){
             balance = (balance * convInterest) + annualAdd;
-            System.out.println("Year: " + (years+1));
-            System.out.println("Balance: $" + balance);
+            System.out.println("Year: " + (years+1) + " -- Balance: $" + balance);
         }
         return balance;
     }
@@ -40,18 +37,14 @@ public class Control {
     // Return total money saved (custom)
     public double grandTotal(double years, double initialInvest,
                              double annualAdd, double assumeInt){
-        
         double convInterest = (assumeInt/100)+1;
         System.out.println("Age: " + years);
         System.out.println("Interest: " + convInterest);
-        
         Double balance = (initialInvest * convInterest) + annualAdd;
-        System.out.println("Year: 1 Balance: " + balance);
-        
+        System.out.println("Year: 1 -- Balance: $" + balance);
         for (int count = 1; count < years; count++){
             balance = (balance * convInterest) + annualAdd;
-            System.out.println("Year: " + (count+1));
-            System.out.println("Balance: $" + balance);
+            System.out.println("Year: " + (count+1) + " -- Balance: $" + balance);
         }
         return balance;
     }
@@ -70,6 +63,18 @@ public class Control {
         return earned;
     }
     
+    // Return the absolute value if input is negative
+    public double stayPositive(double getDouble){
+        double checkedDouble = getDouble;
+        // Convert to 1.0 if negative
+        if (checkedDouble < 0)
+        {
+            checkedDouble *= -1.0;
+        }
+        return checkedDouble;
+    }
+    
+    // Insert commas into double type numbers between 4 and 9 chars long
     public String addCommas(double getDouble)
     {
         String returnString;
@@ -134,7 +139,7 @@ public class Control {
         // Make a new array for adding 2 commas
         else if (intLength > 6 && intLength <= 9)
         {
-            // The char array for the final result
+            // The char arrays for the final result
             char[] commaArray = new char[intLength+2];
             char[] flippedCommaArray = new char[intLength+2];
             
