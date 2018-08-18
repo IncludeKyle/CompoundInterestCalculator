@@ -411,6 +411,12 @@ public class CompoundInterest extends Application{
         gui.reset.setOnAction(new EventHandler<ActionEvent>(){
             @Override public void handle(ActionEvent e)
             {
+                // Reset all of the double values 
+                retireAge = 0.0; currentAge = 0.0; customYears = 0.0;
+                initialInvest = 0.0; annualAdd = 0.0; assumeInt = 0.0;
+                moneySaved = 0.0; investReturn = 0.0; grandTotal = 0.0;
+                total = 0.0; invested = 0.0; earned = 0.0;
+                
                 // Turn all texts and text fields invisible
                 gui.currentAgeTxt.setVisible(false);
                 gui.retireAgeTxt.setVisible(false);
