@@ -75,7 +75,7 @@ public class CompoundInterest extends Application{
         //root.getChildren().add(gui.addBackground());
         root.getChildren().add(gui.buildAllPanes());
         
-        // Set up radio button action events
+        // Set up the action events for the 2x radio buttons
         gui.retireRB.setOnAction(new EventHandler<ActionEvent>(){
             @Override public void handle(ActionEvent e)
             {
@@ -374,16 +374,29 @@ public class CompoundInterest extends Application{
                 // Try to write to user specified file
                 try (PrintWriter writer = new PrintWriter(filename))
                 {
-                    writer.println("Current Age: " + currentAge);
-                    writer.println("Retire Age: " + retireAge);
-                    writer.println("Custom Years: " + customYears);
-                    writer.println("Initial Invest: $" + initialInvest);
-                    writer.println("Annual Addition: $" + annualAdd);
-                    writer.println("Assumed Interest: " + assumeInt + "%");
-                    writer.println("Money Invested: $" + invested);
-                    writer.println("Investment Return: $" + earned);
-                    writer.println("Grand Total: $" + total);
-                    
+                    // If retirement option was selected
+                    if (retireBool)
+                    {
+                        writer.println("Current Age: " + currentAge);
+                        writer.println("Retire Age: " + retireAge);
+                        writer.println("Initial Invest: " + mgmt.addCommas(initialInvest));
+                        writer.println("Annual Addition: " + mgmt.addCommas(annualAdd));
+                        writer.println("Assumed Interest: " + assumeInt + "%");
+                        writer.println("Money Invested: " + mgmt.addCommas(invested));
+                        writer.println("Investment Return: " + mgmt.addCommas(earned));
+                        writer.println("Grand Total: " + mgmt.addCommas(total));
+                    }
+                    // If custom years option was selected
+                    if (!retireBool)
+                    {
+                        writer.println("Custom Years: " + customYears);
+                        writer.println("Initial Invest: " + mgmt.addCommas(initialInvest));
+                        writer.println("Annual Addition: " + mgmt.addCommas(annualAdd));
+                        writer.println("Assumed Interest: " + assumeInt + "%");
+                        writer.println("Money Invested: " + mgmt.addCommas(invested));
+                        writer.println("Investment Return: " + mgmt.addCommas(earned));
+                        writer.println("Grand Total: " + mgmt.addCommas(total));
+                    }
                     // Close the file after writing
                     writer.close();
                 } 
